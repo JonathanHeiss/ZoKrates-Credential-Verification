@@ -12,7 +12,7 @@ zokrates export-verifier
 zokrates generate-proof
 ```
 
-```Truffle Note```
+### Truffle Notes
 Execute ```node migrations/init.js``` for copying the Zokrates programs to separeted Solidity contracts.
 Install [Zokrates-JS](https://zokrates.github.io/toolbox/zokrates_js.html).
 Run ```truffle test```
