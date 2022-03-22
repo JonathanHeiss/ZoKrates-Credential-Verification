@@ -1,0 +1,19 @@
+{
+  "inputs": [
+    {
+      "name": "dateOfBirth",
+      "public": false,
+      "type": "field"
+    },
+    {
+      "name": "min",
+      "public": true,
+      "type": "field"
+    }
+  ],
+  "outputs": [
+    {
+      "type": "bool"
+    }
+  ]
+}

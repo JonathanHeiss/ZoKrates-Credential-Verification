@@ -1,0 +1,2 @@
+def main(private field dateOfBirth, field min) -> bool:
+	return dateOfBirth < min
