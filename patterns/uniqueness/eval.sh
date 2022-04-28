@@ -14,11 +14,13 @@ python3.9 attestation.py > $DIR/artifacts/witness-parameters.txt
 # Proving
 
 cd $DIR/proving
-zokrates compile -i verify_equality.zok -o $DIR/artifacts/out
+zokrates compile -i verify_uniqueness.zok -o $DIR/artifacts/out
 compiledSize=$(du -kh $DIR/artifacts/out | cut -f1)
 
 START=`date +%s`
-cat ../artifacts/witness-parameters.txt | xargs zokrates compute-witness -i $DIR/artifacts/out -o $DIR/artifacts/witness -a 
+dappId=$(cat $DIR/attestation/dapp_id.txt)
+witnesses=$(cat $DIR/artifacts/witness-parameters.txt)
+zokrates compute-witness -i $DIR/artifacts/out -o $DIR/artifacts/witness -a $dappId $witnesses
 END=`date +%s`
 witnessDur=$(echo "$END - $START" | bc)
 

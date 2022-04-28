@@ -76,7 +76,7 @@ Example response:
 
 
 ### Zokrates
-Install see [here](https://zokrates.github.io/gettingstarted.html) and ```export PATH=$PATH:/Users/rob/.zokrates/bin```
+Install see [here](https://zokrates.github.io/gettingstarted.html) and ```export PATH=$PATH:/Users/$USER/.zokrates/bin```
 
 ```
 zokrates compile -i minAge.zok
