@@ -1,4 +1,11 @@
 .DS_Store
-dapp/build
-dapp/node_modules
-dapp/build
+__pycache__
+venv
+zok.out
+witness-parameters.txt
+witness
+verification.key
+proving.key
+out
+abi.json
+proof.json
