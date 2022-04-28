@@ -27,7 +27,7 @@ mv abi.json $DIR/artifacts/
 START=`date +%s`
 zokrates setup -i $DIR/artifacts/out -p $DIR/artifacts/proving.key -v $DIR/artifacts/verification.key
 END=`date +%s`
-compileDur=$(echo "$END - $START" | bc)
+setupDur=$(echo "$END - $START" | bc)
 
 # Verification
 zokrates export-verifier -i $DIR/artifacts/verification.key -o $DIR/verification/contracts/Verifier.sol
@@ -36,6 +36,10 @@ START=`date +%s`
 zokrates generate-proof -i $DIR/artifacts/out -j $DIR/artifacts/proof.json -p $DIR/artifacts/proving.key -w $DIR/artifacts/witness
 END=`date +%s`
 proofDur=$(echo "$END - $START" | bc)
+
+# Test
+cd $DIR/verification
+truffle test
 
 # Statistics
 echo "Witness: $witnessDur sec."
