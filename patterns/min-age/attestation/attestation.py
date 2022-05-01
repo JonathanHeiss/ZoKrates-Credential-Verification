@@ -33,7 +33,7 @@ if __name__ == "__main__":
     verifyKey = PublicKey.from_private(signKey)
 
     outputs = [
-        "20000101",
+        "20040101",
         " ".join([str(i) for i in struct.unpack(">16I", value)]),
         write_signature_for_zokrates_cli(verifyKey, sig, resultHash),
     ]
