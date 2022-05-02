@@ -3,9 +3,7 @@ from "ecc/babyjubjubParams" import BabyJubJubParams
 import "signatures/verifyEddsa.code" as verifyEddsa
 import "ecc/babyjubjubParams.code" as context
 
-//def main(private u32 [4][4] sensoryData, private field[2] R, private field S, field[2] A, u32[8] M0, u32[8] M1) -> (bool,u32[16],u32[8],u32[8],u32[8],bool):
-
-def main(private u32 [8] input_1, private u32 [8] input_2, private field[2] R, private field S, field[2] A, u32[8] M0, u32[8] M1) -> (bool, bool):
+def main(u32 min, u32 max, private u32 [8] input_1, private u32 [8] input_2, private field[2] R, private field S, field[2] A, u32[8] M0, u32[8] M1) -> (bool):
     //Verify Signature (R,S) with PupKey (A) on Hash (M0, M1)
 	BabyJubJubParams context = context()	
     bool isVerified = verifyEddsa(R, S, A, M0, M1, context)
@@ -16,7 +14,8 @@ def main(private u32 [8] input_1, private u32 [8] input_2, private field[2] R, p
     // M0 is the first 32 bytes of sha256(input 1 || input_2) || sha256(input_1 || input_2)
     bool hashcheck = if hash1 == M0 then true else false fi
 
-    bool r = isVerified && hashcheck
+    bool rangeCheck = input_2[7] >= min && input_2[7] <= max
 
-    return isVerified, hashcheck
-//return isVerified,concatenation,a,b,hash1,hashcheck
+    bool r = isVerified && hashcheck && rangeCheck
+
+    return r

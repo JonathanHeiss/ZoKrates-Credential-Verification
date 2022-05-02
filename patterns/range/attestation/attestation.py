@@ -22,12 +22,10 @@ if __name__ == "__main__":
 
     # value = "19810902".encode().rjust(64, b"\x00")
     #value = int.to_bytes(19810902, 64, 'little')
-    valueGt = int.to_bytes(1337, 64, 'big')
-    valueLt = int.to_bytes(51966, 64, 'big')
+    value = int.to_bytes(45054, 64, 'big')
 
-    resultHash = hashlib.sha256(valueGt).digest()
-    resultHash += hashlib.sha256(valueLt).digest()
-    # resultHash += resultHash
+    resultHash = hashlib.sha256(value).digest()
+    resultHash += resultHash
 
     sig = signKey.sign(resultHash)
             
@@ -35,8 +33,9 @@ if __name__ == "__main__":
     verifyKey = PublicKey.from_private(signKey)
 
     outputs = [
-        " ".join([str(i) for i in struct.unpack(">16I", valueGt)][-8:]),
-        " ".join([str(i) for i in struct.unpack(">16I", valueLt)][-8:]),
+        "1337",
+        "51966",
+        " ".join([str(i) for i in struct.unpack(">16I", value)]),
         write_signature_for_zokrates_cli(verifyKey, sig, resultHash),
     ]
     sys.stdout.write(" ".join(outputs))
