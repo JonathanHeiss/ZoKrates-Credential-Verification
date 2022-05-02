@@ -22,6 +22,10 @@ contract("Verifier", (accounts) => {
 		assert.ok(proof);
 	});
 
+	it("returns true from zok", () => {
+		assert.equal(proof.inputs.slice(-9, -8), "0x0000000000000000000000000000000000000000000000000000000000000001");
+	});
+
 	it("verifies proof", () => {
 		return verifier.verifyTx(
 					proof.proof,
