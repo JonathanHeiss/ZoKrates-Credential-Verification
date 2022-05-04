@@ -57,21 +57,21 @@ if __name__ == "__main__":
 
     path = [" ".join([str(i) for i in leaf0]), zok_out_u32(h1), zok_out_u32(h01)]
 
-    sys.stdout.write(root + " " + " ".join([str(i) for i in leaf1]) + " " + directionSelector + " " + " ".join(path) + "\n")
+    sys.stdout.write(root + " " + " ".join([str(i) for i in leaf1]) + " " + directionSelector + " " + " ".join(path) + " ")
 
-    # value = int.to_bytes(1337, 64, "big")
+    value = int.to_bytes(45054, 64, 'big') # TODO !!!! This value should be the root
 
-    # resultHash = hashlib.sha256(value).digest()
-    # resultHash += resultHash
+    resultHash = hashlib.sha256(value).digest()
+    resultHash += resultHash
 
-    # sig = signKey.sign(resultHash)
-            
-    # #Create Public Key
-    # verifyKey = PublicKey.from_private(signKey)
+    sig = signKey.sign(resultHash)
 
-    # outputs = [
-    #     " ".join([str(i) for i in struct.unpack(">16I", value)]),
-    #     write_signature_for_zokrates_cli(verifyKey, sig, resultHash),
-    # ]
-    # sys.stdout.write(" ".join(outputs))
+    #Create Public Key
+    verifyKey = PublicKey.from_private(signKey)
+
+    outputs = [
+        " ".join([str(i) for i in struct.unpack(">16I", value)]),
+        write_signature_for_zokrates_cli(verifyKey, sig, resultHash),
+    ]
+    sys.stdout.write(" ".join(outputs))
 
