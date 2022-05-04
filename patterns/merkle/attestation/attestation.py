@@ -59,19 +59,12 @@ if __name__ == "__main__":
 
     sys.stdout.write(root + " " + " ".join([str(i) for i in leaf1]) + " " + directionSelector + " " + " ".join(path) + " ")
 
-    value = int.to_bytes(45054, 64, 'big') # TODO !!!! This value should be the root
+    # Signature
+    sk = PrivateKey.from_rand()
+    msg = hashlib.sha512(h00 + h01).digest()
+    sig = sk.sign(msg)
 
-    resultHash = hashlib.sha256(value).digest()
-    resultHash += resultHash
+    pk = PublicKey.from_private(sk)
 
-    sig = signKey.sign(resultHash)
-
-    #Create Public Key
-    verifyKey = PublicKey.from_private(signKey)
-
-    outputs = [
-        " ".join([str(i) for i in struct.unpack(">16I", value)]),
-        write_signature_for_zokrates_cli(verifyKey, sig, resultHash),
-    ]
-    sys.stdout.write(" ".join(outputs))
+    sys.stdout.write(write_signature_for_zokrates_cli(pk, sig, msg))
 
