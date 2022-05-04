@@ -49,7 +49,7 @@ if __name__ == "__main__":
     h00 = hashlib.sha256(h0 + h1).digest()
     h01 = hashlib.sha256(h2 + h3).digest()
 
-    root = zok_out_u32(hashlib.sha256(h00 + h01).digest())
+    root = hashlib.sha256(h00 + h01).digest()
     leaf0 = [0, 0, 0, 0, 0, 0, 0, leaf0]
     leaf1 = [0, 0, 0, 0, 0, 0, 0, leaf1]
 
@@ -57,11 +57,14 @@ if __name__ == "__main__":
 
     path = [" ".join([str(i) for i in leaf0]), zok_out_u32(h1), zok_out_u32(h01)]
 
-    sys.stdout.write(root + " " + " ".join([str(i) for i in leaf1]) + " " + directionSelector + " " + " ".join(path) + " ")
+    sys.stdout.write(" ".join([str(i) for i in leaf1]) + " " + directionSelector + " " + " ".join(path) + " ")
 
     # Signature
     sk = PrivateKey.from_rand()
-    msg = hashlib.sha512(h00 + h01).digest()
+    
+    msg = root
+    msg += msg
+
     sig = sk.sign(msg)
 
     pk = PublicKey.from_private(sk)
