@@ -1,0 +1,6 @@
+proof,timestamp,gas_call,witness_s,setup_s,proof_s,compiled_size,proving_key_size,verification_key_size
+equality,1652440085,429749,4 sec.,62 sec.,14 sec.,352M,38M,8.0K
+range,1652439949,450118,3 sec.,64 sec.,15 sec.,352M,38M,8.0K
+uniqueness,1652439949,593417,8 sec.,91 sec.,28 sec.,864M,47M,8.0K
+min-age,1652439950,528981,4 sec.,63 sec.,15 sec.,352M,38M,8.0K
+merkle,1652439950,439927,6 sec.,118 sec.,21 sec.,560M,67M,8.0K
