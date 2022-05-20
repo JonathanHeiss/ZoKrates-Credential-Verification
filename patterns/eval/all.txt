@@ -4,3 +4,12 @@ range,1652439949,450118,3 sec.,64 sec.,15 sec.,352M,38M,8.0K
 uniqueness,1652439949,593417,8 sec.,91 sec.,28 sec.,864M,47M,8.0K
 min-age,1652439950,528981,4 sec.,63 sec.,15 sec.,352M,38M,8.0K
 merkle,1652439950,439927,6 sec.,118 sec.,21 sec.,560M,67M,8.0K
+equality,1653061504,511219,4 sec.,63 sec.,13 sec.,352M,38M,8.0K
+range,1653061605,531656,3 sec.,62 sec.,14 sec.,352M,38M,8.0K
+uniqueness,1653061763,675037,8 sec.,89 sec.,27 sec.,864M,47M,12K
+min-age,1653061863,626615,4 sec.,61 sec.,14 sec.,352M,38M,8.0K
+merkle,1653062071,531992,6 sec.,147 sec.,26 sec.,656M,90M,8.0K
+proof_attributes_without_revocation,1653062171,592817,3 sec.,62 sec.,13 sec.,352M,38M,8.0K
+proof_predicates_without_revocation,1653062272,521454,4 sec.,61 sec.,14 sec.,352M,38M,8.0K
+proof_without_revocation-INVALID,1653062362,603027,2 sec.,62 sec.,13 sec.,348M,38M,8.0K
+proof_without_revocation,1653062654,870217,7 sec.,123 sec.,27 sec.,720M,76M,12K

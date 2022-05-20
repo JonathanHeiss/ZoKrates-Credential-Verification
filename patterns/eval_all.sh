@@ -2,7 +2,7 @@
 
 ALL_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-declare -a proofs=("equality" "range" "uniqueness" "min-age" "merkle")
+declare -a proofs=("equality" "range" "uniqueness" "min-age" "merkle" "proof_attributes_without_revocation" "proof_predicates_without_revocation" "proof_without_revocation")
 
 mkdir $ALL_DIR/eval 2> /dev/null
 ALL_EVALS="$ALL_DIR/eval/all.txt"

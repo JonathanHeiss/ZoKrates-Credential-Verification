@@ -14,7 +14,7 @@ python3.9 attestation.py > $DIR/artifacts/witness-parameters.txt
 # Proving
 
 cd $DIR/proving
-zokrates compile -i verify_revealed_prename.zok -o $DIR/artifacts/out
+zokrates compile -i verify_prename-dob.zok -o $DIR/artifacts/out
 compiledSize=$(du -kh $DIR/artifacts/out | cut -f1)
 
 START=`date +%s`

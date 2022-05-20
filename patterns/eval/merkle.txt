@@ -1,8 +1,3 @@
-created virtual environment CPython3.9.12.final.0-64 in 531ms
-  creator CPython3Posix(dest=/Users/rob/git/zok-pdapps/patterns/merkle/attestation/venv, clear=False, no_vcs_ignore=False, global=False)
-  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/Users/rob/Library/Application Support/virtualenv)
-    added seed packages: Flask==2.0.3, Jinja2==3.0.3, MarkupSafe==2.1.1, Werkzeug==2.0.3, bitstring==3.1.9, click==8.0.4, itsdangerous==2.1.1, pip==21.3.1, setuptools==58.3.0, wheel==0.37.0, zokrates_pycrypto==0.3.0
-  activators BashActivator,CShellActivator,FishActivator,NushellActivator,PowerShellActivator,PythonActivator
 Compiling verify_merkle-proof.zok
 
 Compiled code written to '/Users/rob/git/zok-pdapps/patterns/merkle/artifacts/out'
@@ -35,24 +30,24 @@ Compiling your contracts...
 --> /Users/rob/git/zok-pdapps/patterns/merkle/verification/contracts/Verifier.sol
 
 
-> Artifacts written to /var/folders/v9/l7jmy4y56r17h20_szzv4yqc0000gn/T/test--2371-TGSF4FS4kvxl
+> Artifacts written to /var/folders/v9/l7jmy4y56r17h20_szzv4yqc0000gn/T/test--64801-Eq1opFtj6IL8
 > Compiled successfully using:
    - solc: 0.8.0+commit.c7dfd78e.Emscripten.clang
 
-Gas used: 439927
+Gas used: 531992
 
 [0m[0m
 [0m  Contract: Verifier[0m
   [32m  ✓[0m[90m loads proof[0m
   [32m  ✓[0m[90m returns true from zok[0m
-  [32m  ✓[0m[90m verifies proof[0m[31m (917ms)[0m
+  [32m  ✓[0m[90m verifies proof[0m[31m (845ms)[0m
 
 
 [92m [0m[32m 3 passing[0m[90m (1s)[0m
 
 Witness: 6 sec.
-Setup: 118 sec.
-Proof: 21 sec.
-Compiled size: 560M
-Proving key size:  67M
+Setup: 147 sec.
+Proof: 26 sec.
+Compiled size: 656M
+Proving key size:  90M
 Verification key size: 8.0K
