@@ -9,7 +9,8 @@ cd $DIR/attestation
 python3.9 -m virtualenv venv
 source venv/bin/activate
 
-python3.9 attestation.py > $DIR/artifacts/witness-parameters.txt
+dappId=$(cat $DIR/attestation/dapp_id.txt)
+python3.9 attestation.py $dappId > $DIR/artifacts/witness-parameters.txt
 
 # Proving
 
@@ -18,9 +19,8 @@ zokrates compile -i verify_uniqueness.zok -o $DIR/artifacts/out
 compiledSize=$(du -kh $DIR/artifacts/out | cut -f1)
 
 START=`date +%s`
-dappId=$(cat $DIR/attestation/dapp_id.txt)
 witnesses=$(cat $DIR/artifacts/witness-parameters.txt)
-zokrates compute-witness -i $DIR/artifacts/out -o $DIR/artifacts/witness -a $dappId $witnesses
+zokrates compute-witness -i $DIR/artifacts/out -o $DIR/artifacts/witness -a $witnesses
 END=`date +%s`
 witnessDur=$(echo "$END - $START" | bc)
 

@@ -12,7 +12,7 @@ contract MinAgeVerifier {
 		verfier = _verfier;
 	}
 
-	function verifyTx(Verifier.Proof memory _proof, uint[20] memory _input) public returns (bool) {
+	function verifyTx(Verifier.Proof memory _proof, uint[28] memory _input) public returns (bool) {
  		uint256 yrs18Ago = uint256(dt.getYear(block.timestamp) - 18) * 10000 + uint256(dt.getMonth(block.timestamp)) * 100 + uint256(dt.getDay(block.timestamp));
 
 		bool isValid = verfier.verifyTx(_proof, _input);

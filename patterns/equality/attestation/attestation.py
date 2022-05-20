@@ -20,20 +20,19 @@ def write_signature_for_zokrates_cli(pk, sig, msg):
 if __name__ == "__main__":
     signKey = PrivateKey.from_rand()
 
-    # value = "19810902".encode().rjust(64, b"\x00")
-    #value = int.to_bytes(19810902, 64, 'little')
-    value = int.to_bytes(19890519, 64, 'big')
+    attr = int.to_bytes(24, 64, "big") # attr id for dob
+    vc_value = int.to_bytes(19890519, 64, "big")
 
-    resultHash = hashlib.sha256(value).digest()
+    resultHash = hashlib.sha256(b"".join([attr[-32:], vc_value[-32:]])).digest()
     resultHash += resultHash
 
     sig = signKey.sign(resultHash)
             
-    #Create Public Key
     verifyKey = PublicKey.from_private(signKey)
 
     outputs = [
-        " ".join([str(i) for i in struct.unpack(">16I", value)]),
+        " ".join([str(i) for i in struct.unpack(">16I", attr)][-8:]),
+        " ".join([str(i) for i in struct.unpack(">16I", vc_value)][-8:]),
         write_signature_for_zokrates_cli(verifyKey, sig, resultHash),
     ]
     sys.stdout.write(" ".join(outputs))

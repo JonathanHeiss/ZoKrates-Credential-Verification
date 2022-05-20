@@ -20,11 +20,14 @@ def write_signature_for_zokrates_cli(pk, sig, msg):
 if __name__ == "__main__":
     signKey = PrivateKey.from_rand()
 
-    # value = "19810902".encode().rjust(64, b"\x00")
-    # value = int.to_bytes(19810902, 64, 'little') #1447702017
-    value = int.to_bytes(19810902, 64, 'big')
+    attr = int.to_bytes(1337, 64, "big") # attr id
+    vc_value = int.to_bytes(19810902, 64, "big")
 
-    resultHash = hashlib.sha256(value).digest()
+    #print(sys.argv[0])
+
+    dapp_id = int.to_bytes(int(sys.argv[1]), 64, "big")
+
+    resultHash = hashlib.sha256(b"".join([attr[-32:], vc_value[-32:]])).digest()
     resultHash += resultHash
 
     sig = signKey.sign(resultHash)
@@ -33,8 +36,9 @@ if __name__ == "__main__":
     verifyKey = PublicKey.from_private(signKey)
 
     outputs = [
-        " ".join([str(i) for i in struct.unpack(">16I", value)]),
-        #"19890519",
+        " ".join([str(i) for i in struct.unpack(">16I", dapp_id)][-8:]),
+        " ".join([str(i) for i in struct.unpack(">16I", attr)][-8:]),
+        " ".join([str(i) for i in struct.unpack(">16I", vc_value)][-8:]),        #"19890519",
         write_signature_for_zokrates_cli(verifyKey, sig, resultHash),
         # " ".join([str(i) for i in (sig[0].x, sig[0].y, sig[1], verifyKey.p.x.n, verifyKey.p.y.n)]),
         # " ".join([str(i) for i in struct.unpack(">16I", resultHash)]),
