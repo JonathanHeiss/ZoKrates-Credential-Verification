@@ -1,6 +1,8 @@
 // Based on: https://raw.githubusercontent.com/Zokrates/ZoKrates/a757921bad1bab80aafe2ac7c2caccab88feb9f7/zokrates_cli/examples/merkleTree/sha256PathProof3.zok
 
 import "hashes/sha256/512bitPadded.code" as hash
+import "hashes/sha256/512bitPadded.code" as sha256
+
 import "hashes/utils/256bitsDirectionHelper" as multiplex
 
 from "ecc/babyjubjubParams" import BabyJubJubParams
@@ -15,10 +17,12 @@ def select(bool condition, u32[8] left, u32[8] right) -> (u32[8], u32[8]):
 // Merke-Tree inclusion proof for tree depth 4 using sha256
 // directionSelector => true if current digest is on the rhs of the hash
 
-def main(private u32[8] leaf, private bool[DEPTH] directionSelector, private u32[DEPTH][8] path, private field[2] R, private field S, field[2] A, u32[8] M0, u32[8] M1) -> (bool, bool):
+def main(private u32[8] leaf, u32[8] root, private bool[DEPTH] directionSelector, private u32[DEPTH][8] path, private field[2] R, private field S, field[2] A, u32[8] M0, u32[8] M1) -> (bool, bool, bool):
 	//Verify Signature (R,S) with PupKey (A) on Hash (M0, M1)
 	BabyJubJubParams context = context()		
     bool isVerified = verifyEddsa(R, S, A, M0, M1, context)
+    u32[8] hash1 = sha256([0, 0, 0, 0, 0, 0, 0, 0], leaf)
+    bool hashcheck = hash1 == M0
 
 	// Start from the leaf
 	u32[8] digest = leaf
@@ -29,6 +33,6 @@ def main(private u32[8] leaf, private bool[DEPTH] directionSelector, private u32
 		digest = hash(left, right)
 	endfor
 
-	bool inSet = digest == M1
+	bool inSet = digest == root
 
-	return inSet, isVerified
+	return isVerified, hashcheck, inSet
