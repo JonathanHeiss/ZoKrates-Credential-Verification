@@ -1,4 +1,4 @@
-# Non-Disclosing Credential On-chaining for Blockchain-based Decentralized Applications
+# Non-Disclosing Credential On-chaining for DApps
 
 ## Setup and Run
 
