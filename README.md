@@ -1,4 +1,4 @@
-# zok-pdapps
+# Non-Disclosing Credential On-chaining for Blockchain-based Decentralized Applications
 
 ## Setup and Run
 
