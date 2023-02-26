@@ -1,0 +1,20 @@
+import "hashes/sha256/512bitPadded.code" as sha256
+from "ecc/babyjubjubParams" import BabyJubJubParams
+import "signatures/verifyEddsa.code" as verifyEddsa
+import "ecc/babyjubjubParams.code" as context
+
+def main(u32 [8] attr1, u32 [8] vc1, private field[2] R1, private field S1, field[2] A1, u32[8] M01, u32[8] M11, u32 [8] attr2, private u32 [8] vc2, u32 threshold, private field[2] R2, private field S2, field[2] A2, u32[8] M02, u32[8] M12) -> (bool):
+    //Verify Signature (R1,S1) with PupKey (A) on Hash (M0, M1)
+	BabyJubJubParams context = context()	
+    bool isVerified1 = verifyEddsa(R1, S1, A1, M01, M11, context)
+    u32[8] hash1 = sha256(attr1, vc1)
+    // M0 is the first 32 bytes of sha256(input 1 || attr1) || sha256(vc1 || attr1)
+    bool hashcheck1 = hash1 == M01
+
+    bool isVerified2 = verifyEddsa(R2, S2, A2, M02, M12, context)
+    u32[8] hash2 = sha256(attr2, vc2)
+    bool hashcheck2 = hash2 == M02
+
+    bool rangeCheck = vc2[7] < threshold
+
+    return isVerified1 && hashcheck1 && isVerified2 && hashcheck2 && rangeCheck

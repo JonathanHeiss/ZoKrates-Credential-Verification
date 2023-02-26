@@ -1,0 +1,53 @@
+Compiling verify_merkle-proof.zok
+
+Compiled code written to '/Users/rob/git/zok-pdapps/patterns/merkle/artifacts/out'
+Computing witness...
+Witness file written to '/Users/rob/git/zok-pdapps/patterns/merkle/artifacts/witness'
+Performing setup...
+WARNING: You are using the G16 scheme which is subject to malleability. See zokrates.github.io/toolbox/proving_schemes.html#g16-malleability for implications.
+Verification key written to '/Users/rob/git/zok-pdapps/patterns/merkle/artifacts/verification.key'
+Proving key written to '/Users/rob/git/zok-pdapps/patterns/merkle/artifacts/proving.key'
+Setup completed
+Exporting verifier...
+Verifier exported to '/Users/rob/git/zok-pdapps/patterns/merkle/verification/contracts/Verifier.sol'
+Generating proof...
+WARNING: You are using the G16 scheme which is subject to malleability. See zokrates.github.io/toolbox/proving_schemes.html#g16-malleability for implications.
+Proof written to '/Users/rob/git/zok-pdapps/patterns/merkle/artifacts/proof.json'
+Using network 'test'.
+
+
+Compiling your contracts...
+===========================
+> Compiling ./../../equality/verification/contracts/Verifier.sol
+> Compiling ./contracts/Migrations.sol
+> Compiling ./contracts/Verifier.sol
+> Compilation warnings encountered:
+
+    Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> /Users/rob/git/zok-pdapps/patterns/equality/verification/contracts/Verifier.sol
+
+,Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> /Users/rob/git/zok-pdapps/patterns/merkle/verification/contracts/Verifier.sol
+
+
+> Artifacts written to /var/folders/v9/l7jmy4y56r17h20_szzv4yqc0000gn/T/test--64801-Eq1opFtj6IL8
+> Compiled successfully using:
+   - solc: 0.8.0+commit.c7dfd78e.Emscripten.clang
+
+Gas used: 531992
+
+[0m[0m
+[0m  Contract: Verifier[0m
+  [32m  ✓[0m[90m loads proof[0m
+  [32m  ✓[0m[90m returns true from zok[0m
+  [32m  ✓[0m[90m verifies proof[0m[31m (845ms)[0m
+
+
+[92m [0m[32m 3 passing[0m[90m (1s)[0m
+
+Witness: 6 sec.
+Setup: 147 sec.
+Proof: 26 sec.
+Compiled size: 656M
+Proving key size:  90M
+Verification key size: 8.0K
