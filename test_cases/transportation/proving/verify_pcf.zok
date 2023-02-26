@@ -1,0 +1,26 @@
+import "hashes/sha256/512bitPadded.code" as sha256
+from "ecc/babyjubjubParams" import BabyJubJubParams
+import "signatures/verifyEddsa.code" as verifyEddsa
+import "ecc/babyjubjubParams.code" as context
+
+def main(u32 ef_fuel, private u32 af_load, private u32 [8] pholder, private u32 [8] ad_fuel, private field[2] R, private field S, field[2] A, u32[8] M0, u32[8] M1, private u32 [8] pholder2, private u32 [8] pubkey, private field[2] R2, private field S2, field[2] A2, u32[8] M02, u32[8] M12) -> (bool,bool,u32):
+    //Verify Signature (R,S) with PupKey (A) on Hash (M0, M1)
+	BabyJubJubParams context = context()
+    
+    //Transport Attestation
+    bool isVerified = verifyEddsa(R, S, A, M0, M1, context)
+    u32[8] hash1 = sha256(pholder, ad_fuel)
+    bool hashcheck = hash1 == M0     // M0 is the first 32 bytes of sha256(input 1 || vc) || sha256(attr || vc)
+    bool att_check = isVerified && hashcheck
+
+        //Transport Attestation
+    bool isVerified2 = verifyEddsa(R2, S2, A2, M02, M12, context)
+    u32[8] hash2 = sha256(pholder2, pubkey)
+    bool hashcheck2 = hash2 == M02     // M0 is the first 32 bytes of sha256(input 1 || vc) || sha256(attr || vc)
+    bool att_check2 = isVerified2 && hashcheck2
+
+
+    //Emission Calculation
+    u32 e_trans = ad_fuel[7] * ef_fuel * af_load
+
+    return att_check,att_check2,e_trans

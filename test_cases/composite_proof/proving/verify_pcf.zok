@@ -1,0 +1,52 @@
+import "hashes/sha256/512bitPadded.code" as sha256
+from "ecc/babyjubjubParams" import BabyJubJubParams
+import "signatures/verifyEddsa.code" as verifyEddsa
+import "ecc/babyjubjubParams.code" as context
+
+//inputs
+def main(u32 ef_fuel, private u32 af_load, private u32 [8] pholder, private u32 [8] ad_fuel, private field[2] R, private field S, field[2] A, u32[8] M0, private u32[8] M1, private u32 [8] pholder2, private u32 [8] pubkey, private field[2] R2, private field S2, field[2] A2, u32[8] M02, private u32[8] M12, u32 ef_elec, private u32 af_elec, private u32 [8] pholder3, private u32 [8] ad_elec, private field[2] R3, private field S3, field[2] A3, u32[8] M03, private u32[8] M13, private u32 [8] pholder4, private u32 [8] pubkey2, private field[2] R4, private field S4, field[2] A4, u32[8] M04, private u32[8] M14, private u32 [8] pholder5, private u32 [8] upPCF1, u32[8] M05, private u32[8] M15, private u32 [8] pholder6, private u32 [8] upPCF2, u32[8] M06, private u32[8] M16, private u32 [8] pholder7, private u32 [8] upPCF3, u32[8] M07, private u32[8] M17) -> (bool,u32,bool,u32,bool,u32):
+
+
+    //Verify Signature (R,S) with PupKey (A) on Hash (M0, M1)
+	BabyJubJubParams context = context()
+    
+    //Transport Signature 
+    bool isVerified = verifyEddsa(R, S, A, M0, M1, context)
+    u32[8] hash1 = sha256(pholder, ad_fuel)
+    bool hashcheck1 = hash1 == M0     // M0 is the first 32 bytes of sha256(input 1 || vc) || sha256(attr || vc)
+    //Transport Attestation
+    bool isVerified2 = verifyEddsa(R2, S2, A2, M02, M12, context)
+    u32[8] hash2 = sha256(pholder2, pubkey)
+    bool hashcheck2 = hash2 == M02     // M0 is the first 32 bytes of sha256(input 1 || vc) || sha256(attr || vc)
+    bool trans_check = isVerified && hashcheck1 && isVerified2 && hashcheck2
+    //Transport Emission Calculation
+    u32 e_trans = ad_fuel[7] * ef_fuel * af_load
+
+
+    //Manufacturing Signature
+    bool isVerified3 = verifyEddsa(R3, S3, A3, M03, M13, context)
+    u32[8] hash3 = sha256(pholder, ad_fuel)
+    bool hashcheck3 = hash3 == M0     // M0 is the first 32 bytes of sha256(input 1 || vc) || sha256(attr || vc)
+    //Manufacturing Attestation
+    bool isVerified4 = verifyEddsa(R4, S4, A4, M04, M14, context)
+    u32[8] hash4 = sha256(pholder2, pubkey)
+    bool hashcheck4 = hash4 == M02     // M0 is the first 32 bytes of sha256(input 1 || vc) || sha256(attr || vc)
+    bool manu_check = isVerified3 && hashcheck3 && isVerified4 && hashcheck4
+    //Manufact Emission Calculation
+    u32 e_elec = ad_elec[7] * ef_elec * af_elec
+
+
+    //Upstream PCFs Hash Check
+    u32[8] hash5 = sha256(pholder5, upPCF1)
+    bool hashcheck5 = hash5 == M05 
+    //PCF 2
+    u32[8] hash6 = sha256(pholder6, upPCF2)
+    bool hashcheck6 = hash6 == M06 
+    //PCF 3
+    u32[8] hash7 = sha256(pholder7, upPCF3)
+    bool hashcheck7 = hash7 == M07 
+    //PCF combined
+    bool upstr_check = hashcheck5 && hashcheck6 && hashcheck7
+    u32 e_upstr = upPCF1[7] + upPCF2[7] + upPCF3[7]
+
+    return trans_check,e_trans,manu_check,e_elec,upstr_check,e_upstr
