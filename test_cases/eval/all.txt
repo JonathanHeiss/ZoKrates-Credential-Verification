@@ -1,5 +1,0 @@
-proof,timestamp,gas_call,witness_s,setup_s,proof_s,compiled_size,proving_key_size,verification_key_size
-composite_proof,1677413671,887624,7 sec.,188 sec.,33 sec.,1.5G,161M,16K
-transportation,1677413795,596132,4 sec.,89 sec.,15 sec.,720M,76M,8.0K
-manufacturing,1677413920,596108,3 sec.,89 sec.,16 sec.,720M,76M,8.0K
-upstream_PCF,1677413984,685429,2 sec.,44 sec.,7 sec.,304M,39M,12K
